@@ -1,0 +1,36 @@
+# Création de la table type de produit
+
+CREATE TABLE typeProduit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    libelle VARCHAR(50) NOT NULL
+);
+
+# Création de la table produit
+
+CREATE TABLE produit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    stock INT NOT NULL,
+    prix DECIMAL(8,2) NOT NULL,
+    type_id INT,
+    FOREIGN KEY (type_id) REFERENCES typeProduit(id)
+        ON DELETE CASCADE
+);
+
+# Création de la table User
+
+CREATE TABLE User (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    role VARCHAR(30) NOT NULL
+);
+
+# Création de la table Facture
+
+CREATE TABLE Facture (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date_facture DATE NOT NULL,
+    user_id INT,
+    montant DECIMAL(10,2),
+    FOREIGN KEY (user_id) REFERENCES User(id)
+);

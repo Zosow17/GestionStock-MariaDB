@@ -1,0 +1,28 @@
+# GROUP BY : nombre de produits par type
+
+SELECT t.libelle, COUNT(p.id) AS nb_produits
+FROM typeProduit t
+JOIN produit p ON p.type_id = t.id
+GROUP BY t.libelle;
+
+#Valeur totale du stock
+
+SELECT SUM(stock * prix) AS valeur_stock
+FROM produit;
+
+#Produit le moins ou le plus cher
+
+SELECT nom, prix
+FROM produit
+WHERE prix = (SELECT MIN(prix) FROM produit);
+
+# Produit le plus cher par type
+
+SELECT t.libelle, p.nom, p.prix
+FROM produit p
+JOIN typeProduit t ON p.type_id = t.id
+WHERE (p.type_id, p.prix) IN (
+    SELECT type_id, MAX(prix)
+    FROM produit
+    GROUP BY type_id
+);
