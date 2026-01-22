@@ -1,0 +1,64 @@
+
+  			-- INSERTION DES DONNÉES (Jeu de test) 
+
+-- 3. INSERTION DES 5 TYPES DE PRODUITS
+-- Consigne : Insérer les types alimentation, périphérique, matériel portable, switch
+INSERT INTO typeProduit (libelle) VALUES 
+('Alimentation'),       -- Type 1
+('Périphérique'),       -- Type 2
+('Matériel Portable'),  -- Type 3
+('Switch'),             -- Type 4
+('Composants');         -- Type 5 (Ajouté pour avoir les 5 demandés)
+
+-- 4. INSERTION DES 5 UTILISATEURS
+-- Consigne : 5 users avec des droits différents (simulés par le rôle ici)
+INSERT INTO User (username, role) VALUES 
+('sow', 'Directeur'),     
+('Mama', 'adjoin'),     
+('stagiaire_rt', 'lecteur'),
+('service_compta', 'Caissier'),
+('client', 'Lecteur');      
+
+
+--  On la recrée avec le nom EXACT 'id_type'
+CREATE TABLE produit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    stock INT DEFAULT 0,
+    prix DECIMAL(10, 2) NOT NULL,
+    id_type INT, -- C'est ici que ça bloquait (c'était peut-être type_id avant)
+    FOREIGN KEY (id_type) REFERENCES typeProduit(id)
+);
+
+-- 5. Maintenant l'insertion va fonctionner
+INSERT INTO produit (nom, stock, prix, id_type) VALUES 
+
+-- TYPE 1 : ALIMENTATION
+('Câble Secteur PC', 100, 5.00, 1),
+('Multiprise Parasurtenseur', 50, 15.00, 1),
+('Chargeur Universel', 30, 25.00, 1),
+('Onduleur 600VA', 10, 80.00, 1),
+
+-- TYPE 2 : PÉRIPHÉRIQUE
+('Souris Sans Fil', 40, 12.00, 2),
+('Clavier Mécanique', 20, 45.00, 2),
+('Webcam HD', 15, 35.00, 2),
+('Casque Audio USB', 25, 20.00, 2),
+
+-- TYPE 3 : MATÉRIEL PORTABLE
+('PC Portable Dell', 5, 800.00, 3),
+('Tablette Surface', 8, 950.00, 3),
+('MacBook Air', 3, 1200.00, 3),
+('Sacoche PC', 50, 30.00, 3),
+
+-- TYPE 4 : SWITCH
+('Switch Netgear 5 ports', 20, 25.00, 4),
+('Switch Cisco 24 ports', 2, 300.00, 4),
+('Switch PoE 8 ports', 10, 60.00, 4),
+('Câble RJ45 10m', 100, 10.00, 4),
+
+-- TYPE 5 : COMPOSANTS
+('Disque Dur SSD 1To', 30, 60.00, 5),
+('Barrette RAM 16Go', 40, 50.00, 5),
+('Carte Graphique', 5, 350.00, 5),
+('Processeur i5', 10, 180.00, 5);

@@ -1,0 +1,10 @@
+cd Desktop\Projet_GestionStock
+mysqldump -u root -p GestionStock > sauvegarde_complete.sql
+-- Oups ! Suppression accidentelle de la table produit
+DROP TABLE produit;
+
+-- Vérification que la catastrophe a eu lieu
+SELECT * FROM produit;
+
+mysql -u root -p GestionStock < sauvegarde_complete.sql
+SELECT COUNT(*) FROM produit;

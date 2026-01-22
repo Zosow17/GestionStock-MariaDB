@@ -2,7 +2,7 @@
 
 SELECT t.libelle, COUNT(p.id) AS nb_produits
 FROM typeProduit t
-JOIN produit p ON p.type_id = t.id
+JOIN produit p ON p.id_type = t.id
 GROUP BY t.libelle;
 
 #Valeur totale du stock
@@ -20,9 +20,9 @@ WHERE prix = (SELECT MIN(prix) FROM produit);
 
 SELECT t.libelle, p.nom, p.prix
 FROM produit p
-JOIN typeProduit t ON p.type_id = t.id
-WHERE (p.type_id, p.prix) IN (
-    SELECT type_id, MAX(prix)
+JOIN typeProduit t ON p.id_type = t.id
+WHERE (p.id_type, p.prix) IN (
+    SELECT id_type, MAX(prix)
     FROM produit
-    GROUP BY type_id
+    GROUP BY id_type
 );

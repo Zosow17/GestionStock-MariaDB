@@ -1,0 +1,42 @@
+/* ==========================================================
+   GESTION DES UTILISATEURS MYSQL ET DES PRIVILÈGES
+   ========================================================== */
+
+-- 1. Nettoyage préalable (au cas où ils existent déjà pour éviter les erreurs)
+DROP USER IF EXISTS 'admin_app'@'localhost';
+DROP USER IF EXISTS 'lecteur'@'localhost';
+DROP USER IF EXISTS 'api_user'@'127.0.0.1';
+
+-- ==========================================================
+-- UTILISATEUR 1 : ADMIN APP
+-- Consigne : "tous droits sur GestionStock"
+-- ==========================================================
+CREATE USER 'admin_app'@'localhost' IDENTIFIED BY 'AdminPass123!';
+-- On donne TOUS les droits, mais UNIQUEMENT sur la base GestionStock
+GRANT ALL PRIVILEGES ON GestionStock.* TO 'admin_app'@'localhost';
+
+
+-- ==========================================================
+-- UTILISATEUR 2 : LECTEUR
+-- Consigne : "SELECT uniquement"
+-- ==========================================================
+CREATE USER 'lecteur'@'localhost' IDENTIFIED BY 'LecteurPass123!';
+-- Droit de lecture seule (ne peut pas casser la base)
+GRANT SELECT ON GestionStock.* TO 'lecteur'@'localhost';
+
+
+-- ==========================================================
+-- UTILISATEUR 3 : API USER
+-- Consigne : "SELECT/INSERT/UPDATE + restriction IP 127.0.0.1"
+-- ==========================================================
+-- Note l'utilisation de '127.0.0.1' au lieu de 'localhost' pour forcer l'IP
+CREATE USER 'api_user'@'127.0.0.1' IDENTIFIED BY 'ApiPass123!';
+-- Droits limités à la manipulation de données (pas de DELETE, pas de DROP)
+GRANT SELECT, INSERT, UPDATE ON GestionStock.* TO 'api_user'@'127.0.0.1';
+
+
+-- ==========================================================
+-- FINALISATION
+-- ==========================================================
+-- Important pour recharger les tables de droits immédiatement
+FLUSH PRIVILEGES;
