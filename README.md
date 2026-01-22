@@ -31,42 +31,4 @@ Déployer une base MariaDB sécurisée pour la gestion de stock d’une PME.
 
 
 
-#le shéma
 
-┌───────────────┐
-│  typeProduit  │
-├───────────────┤
-│ id (PK)       │
-│ libelle       │
-└───────┬───────┘
-        │ 1
-        │
-        │ N
-┌───────▼───────┐
-│    produit    │
-├───────────────┤
-│ id (PK)       │
-│ nom           │
-│ stock         │
-│ prix          │
-│ type_id (FK)  │
-└───────────────┘
-
-┌───────────────┐
-│     User      │
-├───────────────┤
-│ id (PK)       │
-│ username      │
-│      │
-└───────┬───────┘
-        │ 1
-        │
-        │ N
-┌───────▼───────┐
-│    Facture    │
-├───────────────┤
-│ id (PK)       │
-│ date_facture  │
-│ montant       │
-│ user_id (FK)  │
-└───────────────┘
